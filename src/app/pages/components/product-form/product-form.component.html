@@ -1,0 +1,55 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="p-3">
+
+    <div class="form-group" *ngIf="!productSelected.id">
+        <h1 class="border-bottom border-dark w-100">Registrar producto</h1>
+    </div>
+
+    <div class="form-group" *ngIf="productSelected.id">
+        <h1 class="border-bottom border-dark w-100">Editar producto</h1>
+    </div>
+
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Nombre</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" formControlName="nombre">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Tipo</label>
+        <div class="col-sm-10">
+            <select formControlName="tipo" class="form-select">
+                <option *ngFor="let type of typeList " [value]="type.id">
+                    {{type.descripcion}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm col-form-label">País</label>
+        <div class="col-sm-10">
+            <select formControlName="pais" class="form-select">
+                <option *ngFor="let country of countryList" [value]="country.id">
+                    {{country.descripcion}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm col-form-label">Precio</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" formControlName="precio">
+        </div>
+    </div>
+
+    <div class="form-group text-center" *ngIf="!productSelected.id">
+        <button type="submit" class="w-100 btn btn-outline-dark fw-bold"><span>Registrar Producto</span></button>
+    </div>
+
+    <div class="form-group text-center" *ngIf="productSelected.id">
+        <button type="submit" class="w-100 btn btn-outline-success fw-bold"><span>Editar Producto</span></button>
+    </div>
+
+</form>

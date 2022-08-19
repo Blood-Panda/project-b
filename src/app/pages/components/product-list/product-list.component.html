@@ -1,0 +1,67 @@
+<div class="container">
+    <h1 class="fw-bold">Listado de Productos</h1>
+
+<button type="button" class="btn btn-outline-dark" (click)="abrirModalForm(agregarProducto)">Agregar Producto</button>
+
+<div class="col mt-4">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="filtrar">
+    </div>
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">País de Origen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <tr *ngFor="let product of productList">
+                <td data-titulo="Id"> {{product.id}} </td>
+                <td data-titulo="Nombre"> {{product.nombre}} </td>
+                <td data-titulo="Tipo"> {{product.tipo}} </td>
+                <td data-titulo="Precio"> {{product.precio}} </td>
+                <td data-titulo="Pais"> {{product.pais}} </td>
+                <td data-titulo="Acciones">
+                    <button type="button" class="btn btn-warning m-0 p-1"
+                        (click)="cambiarProducto(product);abrirModalForm(modificarProducto)">
+                        <!-- <span class="material-icons">Editar</span> -->
+                        Editar
+                    </button>
+                    <button type="button" class="btn btn-danger m-0 p-1"
+                        (click)="abrirModalCerrar(contenidoCerrar, product)">
+                        <!-- <span class="material-icons">Eliminar</span> -->
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #agregarProducto let-modal>
+    <app-product-form (cerraModal)="modal.close('Close click')"></app-product-form>
+</ng-template>
+
+<ng-template #contenidoCerrar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminando...</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>¿Estas seguro de eliminar este producto?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="eliminarProducto();modal.close('Close click')">Eliminar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #modificarProducto let-modal>
+    <app-product-form [productSelected]="productSelected" (cerraModal)="modal.close('Close click')"></app-product-form>
+</ng-template>
