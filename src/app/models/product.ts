@@ -1,7 +1,10 @@
+import { Country } from "./country";
+import { Type } from "./type";
+
 export class Product{
     id: number;
     nombre: string;
-    tipo: string;
+    tipo: Type;
     precio: number;
-    pais: string;
+    pais: Country;
 }

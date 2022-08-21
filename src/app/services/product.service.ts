@@ -36,15 +36,16 @@ export class ProductService {
   listarTipos(): Observable<Type[]> {
     return this.http.
       get<Product[]>(
-        `${url}/api/Producto/ListarTipos`)
+        `${url}/api/Tipo/ListarTipos`)
       .pipe(
         map((response: any) => response)
       );
   }
+
   listarPaises(): Observable<Country[]> {
     return this.http.
       get<Product[]>(
-        `${url}/api/Producto/ListarPaises`)
+        `${url}/api/Pais/ListarPaises`)
       .pipe(
         map((response: any) => response)
       );
@@ -57,7 +58,7 @@ export class ProductService {
   }
 
   eliminarProducto(id: number): Observable<any> {
-    return this.http.get<void>(`${url}/api/Producto/EliminarProducto/${id}`).pipe(
+    return this.http.post<void>(`${url}/api/Producto/EliminarProducto`, id).pipe(
       map((response: any) => response)
     );
   }
