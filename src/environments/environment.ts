@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,  
-  url: 'http://localhost:44337',
+  url: 'https://smallbluedog21.conveyor.cloud',
 };
 
 /*

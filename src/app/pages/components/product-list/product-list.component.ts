@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/models/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -13,16 +14,21 @@ export class ProductListComponent implements OnInit {
   filtrar: string = '';
   
   @Input() productSelected: Product;
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,private productservice: ProductService) { }
 
   ngOnInit(): void {
-    this.productList = [{
-      id: 1,
-      nombre: "Producto 1",
-      tipo: "Tipo 1",
-      precio: 24.5,
-      pais: "México"
-    }];    //TODO:AQUI SE DEBE DE LLENAR LA LISTA DE PRODUCTOS
+    this.productservice.listarProductos()
+    .subscribe
+    ((res: any) => {        
+      if (res.isSuccess) {
+        if (res.dato) {
+          this.productList = res.dato;
+        }
+      }
+      console.log(this.productList);
+    });; 
+    
+    
   }
 
   abrirModalForm(contenido: any) {
@@ -34,7 +40,14 @@ export class ProductListComponent implements OnInit {
   }
 
   eliminarProducto() {
-    //TODO:API PARA ELIMINAR PRODUCTO
+    this.productservice.eliminarProducto(this.productSelected).subscribe(res => {
+      if (res.isSuccess) {
+        if (res.dato) {
+          console.log("Ehhhh");
+
+        }
+      }
+    });
   }
   
   cambiarProducto(product:Product){

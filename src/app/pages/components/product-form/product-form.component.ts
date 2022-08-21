@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Country } from 'src/app/models/country';
+import { Pais } from 'src/app/models/country';
 import { Product } from 'src/app/models/product';
-import { Type } from 'src/app/models/type';
+import { Tipo } from 'src/app/models/type';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -11,17 +12,55 @@ import { Type } from 'src/app/models/type';
 })
 export class ProductFormComponent implements OnInit {
 
+
   productForm: FormGroup;
 
-  typeList: Type[];
-  countryList: Country[];
+  typeList: Tipo[];
+  countryList: Pais[];
 
   @Input() productSelected: Product = new Product();
   @Output() cerraModal = new EventEmitter<Boolean>();
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private productservice: ProductService) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.productservice.listarTipos()
+      .subscribe
+      ((res: any) => {
+        if (res.isSuccess) {
+          if (res.dato) {
+            this.typeList = res.dato;
+          }
+        }
+      });;
+
+    this.productservice.listarPaises()
+      .subscribe
+      ((res: any) => {
+        if (res.isSuccess) {
+          if (res.dato) {
+            this.countryList = res.dato;
+          }
+        }
+      });;
+    if (!this.productSelected.id) {
+      this.productForm.setValue({
+        id: '',
+        nombre: '',
+        tipo: '',
+        pais: '',
+        precio: '',
+      })
+    } else {
+      this.productForm.setValue(
+        {
+          id: this.productSelected.id,
+          nombre: this.productSelected.nombre,
+          tipo: this.productSelected.tipo.descripcion,
+          pais: this.productSelected.pais.descripcion,
+          precio: this.productSelected.precio,
+        });
+    }
   }
 
   initForm() {
@@ -49,10 +88,28 @@ export class ProductFormComponent implements OnInit {
   }
 
   registrarProducto(producto: Product) {
+    console.log(producto);
+    
+    this.productservice.registrarProducto(producto).subscribe(res => {
+      if (res.isSuccess) {
+        if (res.dato) {
+          console.log("Ehhhh");
+
+        }
+      }
+    });
     //this.fireDatabase.insertProduct(producto);            utilizar api para registrar el producto
   }
 
   editarProducto(producto: Product) {
+    this.productservice.editarProducto(producto).subscribe(res => {
+      if (res.isSuccess) {
+        if (res.dato) {
+          console.log("Ehhhh");
+
+        }
+      }
+    });
     //this.fireDatabase.updateProduct(producto);            utilizar api para editar el producto
   }
 

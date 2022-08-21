@@ -1,13 +1,13 @@
 <div class="container">
     <h1 class="fw-bold">Listado de Productos</h1>
 
-<button type="button" class="btn btn-outline-dark" (click)="abrirModalForm(agregarProducto)">Agregar Producto</button>
+    <button type="button" class="btn btn-outline-dark" (click)="abrirModalForm(agregarProducto)">Agregar Producto</button>
 
-<div class="col mt-4">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="filtrar">
+    <div class="col mt-4">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="filtrar">
+        </div>
     </div>
-</div>
 
     <table class="table">
         <thead>
@@ -22,24 +22,22 @@
         <tbody>
             <tr>
                 <tr *ngFor="let product of productList">
-                <td data-titulo="Id"> {{product.id}} </td>
-                <td data-titulo="Nombre"> {{product.nombre}} </td>
-                <td data-titulo="Tipo"> {{product.tipo}} </td>
-                <td data-titulo="Precio"> {{product.precio}} </td>
-                <td data-titulo="Pais"> {{product.pais}} </td>
-                <td data-titulo="Acciones">
-                    <button type="button" class="btn btn-warning m-0 p-1"
-                        (click)="cambiarProducto(product);abrirModalForm(modificarProducto)">
+                    <td data-titulo="Id"> {{product.id}} </td>
+                    <td data-titulo="Nombre"> {{product.nombre}} </td>
+                    <td data-titulo="Tipo"> {{product.tipo.descripcion}} </td>
+                    <td data-titulo="Precio"> {{product.precio}} </td>
+                    <td data-titulo="Pais"> {{product.pais.descripcion}} </td>
+                    <td data-titulo="Acciones">
+                        <button type="button" class="btn btn-warning m-0 p-1" (click)="cambiarProducto(product);abrirModalForm(modificarProducto)">
                         <!-- <span class="material-icons">Editar</span> -->
                         Editar
                     </button>
-                    <button type="button" class="btn btn-danger m-0 p-1"
-                        (click)="abrirModalCerrar(contenidoCerrar, product)">
+                        <button type="button" class="btn btn-danger m-0 p-1" (click)="abrirModalCerrar(contenidoCerrar, product)">
                         <!-- <span class="material-icons">Eliminar</span> -->
                         Eliminar
                     </button>
-                </td>
-            </tr>
+                    </td>
+                </tr>
         </tbody>
     </table>
 </div>

@@ -1,4 +1,4 @@
-export class Country {
+export class Pais {
     id: number;
     descripcion: string;
 }

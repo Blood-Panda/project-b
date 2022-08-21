@@ -1,10 +1,10 @@
-import { Country } from "./country";
-import { Type } from "./type";
+import { Pais } from "./country";
+import { Tipo } from "./type";
 
 export class Product{
     id: number;
     nombre: string;
-    tipo: Type;
+    tipo: Tipo;
     precio: number;
-    pais: Country;
+    pais: Pais;
 }

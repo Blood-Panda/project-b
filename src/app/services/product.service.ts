@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Country } from '../models/country';
+import { Pais } from '../models/country';
 import { Product } from '../models/product';
-import { Type } from '../models/type';
+import { Tipo } from '../models/type';
 
 const url = environment.url;
 @Injectable({
@@ -27,38 +27,44 @@ export class ProductService {
   listarProductos(): Observable<Product[]> {
     return this.http.
       get<Product[]>(
-        `${url}/api/Producto/ListarProductos`)
+        `${url}/Producto/ListarProductos`)
       .pipe(
         map((response: any) => response)
       );
   }
 
-  listarTipos(): Observable<Type[]> {
+  listarTipos(): Observable<Tipo[]> {
     return this.http.
-      get<Product[]>(
-        `${url}/api/Tipo/ListarTipos`)
+      get<Tipo[]>(
+        `${url}/Tipo/ListarTipos`)
       .pipe(
-        map((response: any) => response)
+        map((response: any) => {return response})
       );
   }
 
-  listarPaises(): Observable<Country[]> {
+  listarPaises(): Observable<Pais[]> {
     return this.http.
-      get<Product[]>(
-        `${url}/api/Pais/ListarPaises`)
+      get<Pais[]>(
+        `${url}/Pais/ListarPaises`)
       .pipe(
         map((response: any) => response)
       );
   }
 
   editarProducto(producto: Product): Observable<any> {
-    return this.http.post<void>(`${url}/api/Producto/EditarProducto`, producto).pipe(
+    return this.http.post<void>(`${url}/Producto/EditarProducto`, producto).pipe(
       map((response: any) => response)
     );
   }
 
-  eliminarProducto(id: number): Observable<any> {
-    return this.http.post<void>(`${url}/api/Producto/EliminarProducto`, id).pipe(
+  eliminarProducto(producto: Product): Observable<any> {
+    return this.http.post<void>(`${url}/Producto/EliminarProducto`, producto).pipe(
+      map((response: any) => response)
+    );
+  }
+
+  registrarProducto(producto: Product): Observable<any> {
+    return this.http.post<void>(`${url}/Producto/RegistrarProducto`, producto).pipe(
       map((response: any) => response)
     );
   }
