@@ -8,12 +8,15 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BuscarPipe } from '../pipes/buscar.pipe';
+import { AlertControlComponent } from './components/alert-control/alert-control.component';
+
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductFormComponent,
-    BuscarPipe
+    BuscarPipe,
+    AlertControlComponent
   ],
   imports: [
     CommonModule,
