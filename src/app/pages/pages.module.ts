@@ -7,11 +7,13 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BuscarPipe } from '../pipes/buscar.pipe';
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    BuscarPipe
   ],
   imports: [
     CommonModule,

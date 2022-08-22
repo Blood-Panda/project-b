@@ -17,6 +17,11 @@ export class ProductListComponent implements OnInit {
   constructor(private modalService: NgbModal,private productservice: ProductService) { }
 
   ngOnInit(): void {
+    this.llenarProductos();
+  }
+  
+
+  llenarProductos(){
     this.productservice.listarProductos()
     .subscribe
     ((res: any) => {        
@@ -25,10 +30,7 @@ export class ProductListComponent implements OnInit {
           this.productList = res.dato;
         }
       }
-      console.log(this.productList);
-    });; 
-    
-    
+    });;     
   }
 
   abrirModalForm(contenido: any) {
@@ -43,8 +45,7 @@ export class ProductListComponent implements OnInit {
     this.productservice.eliminarProducto(this.productSelected).subscribe(res => {
       if (res.isSuccess) {
         if (res.dato) {
-          console.log("Ehhhh");
-
+          this.llenarProductos();
         }
       }
     });

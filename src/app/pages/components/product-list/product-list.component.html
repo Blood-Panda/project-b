@@ -21,7 +21,7 @@
         </thead>
         <tbody>
             <tr>
-                <tr *ngFor="let product of productList">
+                <tr *ngFor="let product of productList | buscar : filtrar">
                     <td data-titulo="Id"> {{product.id}} </td>
                     <td data-titulo="Nombre"> {{product.nombre}} </td>
                     <td data-titulo="Tipo"> {{product.tipo.descripcion}} </td>
@@ -43,7 +43,7 @@
 </div>
 
 <ng-template #agregarProducto let-modal>
-    <app-product-form (cerraModal)="modal.close('Close click')"></app-product-form>
+    <app-product-form (cerraModal)="modal.close('Close click');llenarProductos();"></app-product-form>
 </ng-template>
 
 <ng-template #contenidoCerrar let-modal>
@@ -61,5 +61,5 @@
 
 
 <ng-template #modificarProducto let-modal>
-    <app-product-form [productSelected]="productSelected" (cerraModal)="modal.close('Close click')"></app-product-form>
+    <app-product-form [productSelected]="productSelected" (cerraModal)="modal.close('Close click');llenarProductos(); "></app-product-form>
 </ng-template>

@@ -45,19 +45,19 @@ export class ProductFormComponent implements OnInit {
       });;
     if (!this.productSelected.id) {
       this.productForm.setValue({
-        id: '',
+        id: 0,
         nombre: '',
-        tipo: '',
-        pais: '',
-        precio: '',
+        tipo: 0,
+        pais: 0,
+        precio: 0,
       })
     } else {
       this.productForm.setValue(
         {
           id: this.productSelected.id,
           nombre: this.productSelected.nombre,
-          tipo: this.productSelected.tipo.descripcion,
-          pais: this.productSelected.pais.descripcion,
+          tipo: this.productSelected.tipo.id,
+          pais: this.productSelected.pais.id,
           precio: this.productSelected.precio,
         });
     }
@@ -78,39 +78,57 @@ export class ProductFormComponent implements OnInit {
       return;
     }
     if (!this.productSelected.id) {
-      this.registrarProducto(this.productForm.value);
-      this.cerraModal.emit(true);
+      const { id, nombre, tipo, pais, precio } = this.productForm.value;
+      let oProducto: Product = new Product();
+      oProducto.id = id;
+      oProducto.nombre = nombre;
+      let oTipo: Tipo = new Tipo();
+      oTipo.id = tipo;
+      oTipo.descripcion = '';
+      oProducto.tipo = oTipo;
+      let oPais: Pais = new Pais();
+      oPais.id = pais;
+      oPais.descripcion = '';
+      oProducto.pais = oPais;
+      oProducto.precio = precio;
+      this.registrarProducto(oProducto);
     }
     else {
-      this.editarProducto(this.productForm.value);
-      this.cerraModal.emit(true);
+      const { id, nombre, tipo, pais, precio } = this.productForm.value;
+      let oProducto: Product = new Product();
+      oProducto.id = id;
+      oProducto.nombre = nombre;
+      let oTipo: Tipo = new Tipo();
+      oTipo.id = tipo;
+      oTipo.descripcion = '';
+      oProducto.tipo = oTipo;
+      let oPais: Pais = new Pais();
+      oPais.id = pais;
+      oPais.descripcion = '';
+      oProducto.pais = oPais;
+      oProducto.precio = precio;
+      this.editarProducto(oProducto);
     }
   }
 
   registrarProducto(producto: Product) {
-    console.log(producto);
-    
     this.productservice.registrarProducto(producto).subscribe(res => {
       if (res.isSuccess) {
         if (res.dato) {
-          console.log("Ehhhh");
-
+          this.cerraModal.emit(true);
         }
       }
     });
-    //this.fireDatabase.insertProduct(producto);            utilizar api para registrar el producto
   }
 
   editarProducto(producto: Product) {
     this.productservice.editarProducto(producto).subscribe(res => {
       if (res.isSuccess) {
         if (res.dato) {
-          console.log("Ehhhh");
-
+          this.cerraModal.emit(true);
         }
       }
     });
-    //this.fireDatabase.updateProduct(producto);            utilizar api para editar el producto
   }
 
 
